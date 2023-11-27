@@ -105,11 +105,7 @@ $$ LANGUAGE plpgsql;
 
 
 --funtion for inserting data into the "schedule" table
-CREATE FUNCTION InsertSchedule (
-  s_id INT ,
-  Start_Time TIME ,
-  End_Time TIME 
-)
+CREATE OR REPLACE FUNCTION InsertSchedule ()
 RETURNS INT
 AS $$
 DECLARE
@@ -117,7 +113,7 @@ DECLARE
 BEGIN
 
         -- Insert into the schedules table
-    INSERT INTO Schedule ()
+    INSERT INTO Schedule (s_id, Start_Time, End_Time)
 VALUES
   (1, '00:00:00', '01:00:00'),
   (2, '01:00:00', '02:00:00'),
