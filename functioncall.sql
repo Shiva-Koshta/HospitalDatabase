@@ -21,7 +21,4 @@ SELECT InsertDoctor(
 	3333,'asad',22);
     
 SELECT InsertSchedule(
-    3, -- s_id
-    '10:00:00', -- Start_Time
-    '11:00:00' -- End_Time
 );

@@ -117,7 +117,7 @@ DECLARE
 BEGIN
 
         -- Insert into the schedules table
-    INSERT INTO Schedule (s_id, Start_Time, End_Time)
+    INSERT INTO Schedule ()
 VALUES
   (1, '00:00:00', '01:00:00'),
   (2, '01:00:00', '02:00:00'),
