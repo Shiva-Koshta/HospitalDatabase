@@ -8,7 +8,8 @@ BEGIN
     declare p_schedule_id int;
     declare p_doctor_reg_id int;
 
-    select p_id into p_patient_id from Patient where p_id = NEW.p_id;
+    -- select p_id into p_patient_id from Patient where p_id = NEW.p_id;
+    p_patient_id := NEW.p_id;
 	
 	SELECT s_id, reg_id into p_schedule_id,p_doctor_reg_id
   	FROM Follow
@@ -18,7 +19,7 @@ BEGIN
 
     -- INSERT INTO Appointments (p_id, s_id, reg_id)
     -- VALUES (p_patient_id, p_schedule_id, p_doctor_reg_id);
-     IF doctor_reg_id IS NOT NULL AND schedule_id IS NOT NULL THEN
+     IF p_doctor_reg_id IS NOT NULL AND p_schedule_id IS NOT NULL THEN
         -- Insert the appointment for the new patient
         INSERT INTO Appointments (p_id, s_id, reg_id)
         VALUES (p_patient_id, p_schedule_id, p_doctor_reg_id);
