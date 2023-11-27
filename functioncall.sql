@@ -22,3 +22,6 @@ SELECT InsertDoctor(
     
 SELECT InsertSchedule(
 );
+
+SELECT FillFollow(
+	3333,22);
