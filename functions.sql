@@ -102,7 +102,24 @@ BEGIN
     RETURN num_doctors;
 END;
 $$ LANGUAGE plpgsql;
+--funtion for inserting data into the "follow" table
+CREATE FUNCTION FillFollow (
+  s_id INT,
+  reg_id INT
+)
+RETURNS INT
+AS $$
+DECLARE
+    num_follow INT;
+BEGIN
 
+        -- Insert into the doctor table
+        INSERT INTO follow(s_id,reg_id)
+		VALUES (s_id,reg_id);
+   		select count(*) into num_follow from follow;
+    RETURN num_follow;
+END;
+$$ LANGUAGE plpgsql;
 
 --funtion for inserting data into the "schedule" table
 CREATE OR REPLACE FUNCTION InsertSchedule ()
