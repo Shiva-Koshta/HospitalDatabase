@@ -1,9 +1,3 @@
--- Online SQL Editor to Run SQL Online.
--- Use the editor to create new tables, insert data and all other SQL operations.
-  
-SELECT first_name, age
-FROM Customers;
-
 CREATE TABLE Patient (
   p_id INT PRIMARY KEY,
   p_gender VARCHAR(10) ,
@@ -186,4 +180,3 @@ VALUES
   (23, 108),
   (24, 108)
   ;
-
