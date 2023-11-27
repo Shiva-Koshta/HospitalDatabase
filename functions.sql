@@ -2,13 +2,14 @@
 CREATE OR REPLACE FUNCTION insert_appointment()
 RETURNS trigger AS
 $$
-BEGIN
+
     -- Insert data into the "Appointments" table
     declare p_patient_id int;
     declare p_schedule_id int;
     declare p_doctor_reg_id int;
 
     -- select p_id into p_patient_id from Patient where p_id = NEW.p_id;
+    BEGIN
     p_patient_id := NEW.p_id;
 	
 	SELECT s_id, reg_id into p_schedule_id,p_doctor_reg_id
