@@ -31,6 +31,9 @@ END;
 $$
 LANGUAGE plpgsql;
 
+CREATE TRIGGER insert_appointmentTrigger AFTER INSERT ON Patient
+FOR EACH ROW EXECUTE PROCEDURE insert_appointment();
+
 --funtion for inserting data into the "patient" table
 CREATE FUNCTION InsertPatient (
     p_id INT,
