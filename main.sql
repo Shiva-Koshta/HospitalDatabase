@@ -11,7 +11,7 @@ CREATE TABLE Medical_History (
   p_id INT ,
   date DATE,
   p_condition VARCHAR(255),
-  p_surgerie VARCHAR(255),
+  p_surgery VARCHAR(255),
   p_link VARCHAR(255),
   PRIMARY KEY (h_id,p_id),
   FOREIGN KEY (p_id) REFERENCES Patient(p_id)
