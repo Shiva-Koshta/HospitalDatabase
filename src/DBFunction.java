@@ -1,14 +1,13 @@
 import java.sql.*;
 
 public class DBFunctions {
-    public Connection connectToDB(String dbname, String user, String pass)
-    {
+    public Connection connectToDB(String dbname, String user, String pass) {
         Connection connection = null;
 
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/"+dbname,user,pass);
-            if(connection != null)
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/" + dbname, user, pass);
+            if (connection != null)
                 System.out.println("Connection Established");
             else
                 System.out.println("Connection failed");
@@ -16,11 +15,10 @@ public class DBFunctions {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-        return  connection;
+        return connection;
     }
 
-    public void PrintAllP(Connection connection)
-    {
+    public void PrintAllP(Connection connection) {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
@@ -49,17 +47,18 @@ public class DBFunctions {
         } finally {
             // Close JDBC resources in the reverse order of their creation
             try {
-                if (resultSet != null) resultSet.close();
-                if (statement != null) statement.close();
-//                if (connection != null) connection.close();
+                if (resultSet != null)
+                    resultSet.close();
+                if (statement != null)
+                    statement.close();
+                // if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public  void PrintAllDocTor(Connection connection)
-    {
+    public void PrintAllDocTor(Connection connection) {
         Statement statement = null;
         ResultSet resultSet = null;
 
@@ -91,14 +90,17 @@ public class DBFunctions {
         } finally {
             // Closing the resources
             try {
-                if (resultSet != null) resultSet.close();
-                if (statement != null) statement.close();
-                if (connection != null) connection.close();
+                if (resultSet != null)
+                    resultSet.close();
+                if (statement != null)
+                    statement.close();
+                // if (connection != null) connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
+
     public void PrintAllSchedules(Connection connection) {
         Statement statement = null;
         ResultSet resultSet = null;
@@ -123,8 +125,10 @@ public class DBFunctions {
         } finally {
             // Close JDBC resources in the reverse order of their creation
             try {
-                if (resultSet != null) resultSet.close();
-                if (statement != null) statement.close();
+                if (resultSet != null)
+                    resultSet.close();
+                if (statement != null)
+                    statement.close();
                 // Close the connection should be done outside this method where it's being used
                 // if (connection != null) connection.close();
             } catch (SQLException e) {
@@ -158,8 +162,10 @@ public class DBFunctions {
         } finally {
             // Close JDBC resources in the reverse order of their creation
             try {
-                if (resultSet != null) resultSet.close();
-                if (statement != null) statement.close();
+                if (resultSet != null)
+                    resultSet.close();
+                if (statement != null)
+                    statement.close();
                 // Close the connection should be done outside this method where it's being used
                 // if (connection != null) connection.close();
             } catch (SQLException e) {
@@ -168,32 +174,31 @@ public class DBFunctions {
         }
     }
 
-    public void executeInsertPatient(Connection connection, int p_id, String p_gender, String p_name, String p_address, int p_age) {
+    public void executeInsertPatient(Connection connection, String p_gender, String p_name, String p_address,
+            int p_age) {
         CallableStatement callableStatement = null;
 
         try {
             // Assuming InsertPatient is a stored procedure or function
-            String storedProcedure = "{CALL InsertPatient(?, ?, ?, ?, ?)}";
+            String storedProcedure = "{CALL InsertPatient( ?, ?, ?, ?)}";
             callableStatement = connection.prepareCall(storedProcedure);
 
             // Set parameters
-            callableStatement.setInt(1, p_id);
-            callableStatement.setString(2, p_gender);
-            callableStatement.setString(3, p_name);
-            callableStatement.setString(4, p_address);
-            callableStatement.setInt(5, p_age);
+            callableStatement.setString(1, p_gender);
+            callableStatement.setString(2, p_name);
+            callableStatement.setString(3, p_address);
+            callableStatement.setInt(4, p_age);
 
             // Execute the stored procedure
             callableStatement.execute();
-
-            System.out.println("InsertPatient executed successfully!");
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             // Close JDBC resources in the reverse order of their creation
             try {
-                if (callableStatement != null) callableStatement.close();
+                if (callableStatement != null)
+                    callableStatement.close();
                 // Close the connection should be done outside this method where it's being used
                 // if (connection != null) connection.close();
             } catch (SQLException e) {
@@ -225,7 +230,8 @@ public class DBFunctions {
         } finally {
             // Close JDBC resources in the reverse order of their creation
             try {
-                if (callableStatement != null) callableStatement.close();
+                if (callableStatement != null)
+                    callableStatement.close();
                 // Close the connection should be done outside this method where it's being used
                 // if (connection != null) connection.close();
             } catch (SQLException e) {
@@ -234,7 +240,8 @@ public class DBFunctions {
         }
     }
 
-    public void executeInsertHistory(Connection connection, int h_id, int p_id, String date, String p_condition, String p_surgery, String p_link) {
+    public void executeInsertHistory(Connection connection, int h_id, int p_id, String date, String p_condition,
+            String p_surgery, String p_link) {
         CallableStatement callableStatement = null;
 
         try {
@@ -253,14 +260,13 @@ public class DBFunctions {
             // Execute the stored procedure
             callableStatement.execute();
 
-            System.out.println("InsertHistory executed successfully!");
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             // Close JDBC resources in the reverse order of their creation
             try {
-                if (callableStatement != null) callableStatement.close();
+                if (callableStatement != null)
+                    callableStatement.close();
                 // Close the connection should be done outside this method where it's being used
                 // if (connection != null) connection.close();
             } catch (SQLException e) {
@@ -287,7 +293,8 @@ public class DBFunctions {
         } finally {
             // Close JDBC resources in the reverse order of their creation
             try {
-                if (callableStatement != null) callableStatement.close();
+                if (callableStatement != null)
+                    callableStatement.close();
                 // Close the connection should be done outside this method where it's being used
                 // if (connection != null) connection.close();
             } catch (SQLException e) {
@@ -318,7 +325,8 @@ public class DBFunctions {
         } finally {
             // Close JDBC resources in the reverse order of their creation
             try {
-                if (callableStatement != null) callableStatement.close();
+                if (callableStatement != null)
+                    callableStatement.close();
                 // Close the connection should be done outside this method where it's being used
                 // if (connection != null) connection.close();
             } catch (SQLException e) {
@@ -327,12 +335,12 @@ public class DBFunctions {
         }
     }
 
-    public  void insertDocWithSchedule(Connection connection, int d_reg_id, String d_name, int d_cabin_no, int startTime,int Endtime)
-    {
-        executeInsertDoctor(connection,d_reg_id,d_name,d_cabin_no);
+    public void insertDocWithSchedule(Connection connection, int d_reg_id, String d_name, int d_cabin_no, int startTime,
+            int Endtime) {
+        executeInsertDoctor(connection, d_reg_id, d_name, d_cabin_no);
 
-        for (int i = startTime+1; i <=Endtime ; i++) {
-                fillFollow(connection,i,d_reg_id);
+        for (int i = startTime + 1; i <= Endtime; i++) {
+            fillFollow(connection, i, d_reg_id);
         }
 
     }
@@ -368,8 +376,10 @@ public class DBFunctions {
         } finally {
             // Close JDBC resources in the reverse order of their creation
             try {
-                if (resultSet != null) resultSet.close();
-                if (preparedStatement != null) preparedStatement.close();
+                if (resultSet != null)
+                    resultSet.close();
+                if (preparedStatement != null)
+                    preparedStatement.close();
                 // Close the connection should be done outside this method where it's being used
                 // if (connection != null) connection.close();
             } catch (SQLException e) {
@@ -377,6 +387,7 @@ public class DBFunctions {
             }
         }
     }
+
     public void printDoctorSchedule(Connection connection, int regId) {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -400,8 +411,10 @@ public class DBFunctions {
         } finally {
             // Close JDBC resources in the reverse order of their creation
             try {
-                if (resultSet != null) resultSet.close();
-                if (preparedStatement != null) preparedStatement.close();
+                if (resultSet != null)
+                    resultSet.close();
+                if (preparedStatement != null)
+                    preparedStatement.close();
                 // Close the connection should be done outside this method where it's being used
                 // if (connection != null) connection.close();
             } catch (SQLException e) {
@@ -410,5 +423,197 @@ public class DBFunctions {
         }
     }
 
-}
+    public void printDoctorScheduleByRegId(Connection connection, int regId) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
+        try {
+            String sqlQuery = "SELECT s.Start_Time, s.End_Time " +
+                    "FROM Schedule s " +
+                    "JOIN Follow f ON s.s_id = f.s_id " +
+                    "WHERE f.reg_id = ?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, regId);
+            resultSet = preparedStatement.executeQuery();
+
+            System.out.println("Doctor Schedule for Registration ID " + regId + ":");
+
+            while (resultSet.next()) {
+                Time startTime = resultSet.getTime("Start_Time");
+                Time endTime = resultSet.getTime("End_Time");
+
+                System.out.println("Start Time: " + startTime +
+                        ", End Time: " + endTime);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close JDBC resources in the reverse order of their creation
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void printPatientByName(Connection connection, String patientName) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            String sqlQuery = "SELECT * FROM Patient WHERE p_name = ?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, patientName);
+            resultSet = preparedStatement.executeQuery();
+
+            System.out.println("Patients with Name '" + patientName + "':");
+
+            while (resultSet.next()) {
+                int patientId = resultSet.getInt("p_id");
+                String gender = resultSet.getString("p_gender");
+                String address = resultSet.getString("p_address");
+                int age = resultSet.getInt("p_age");
+
+                System.out.println("Patient ID: " + patientId +
+                        ", Gender: " + gender +
+                        ", Address: " + address +
+                        ", Age: " + age);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close JDBC resources in the reverse order of their creation
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void printAppointmentsByPatientId(Connection connection, int patientId) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            String sqlQuery = "SELECT * FROM Appointments WHERE p_id = ?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, patientId);
+            resultSet = preparedStatement.executeQuery();
+
+            System.out.println("Appointments for Patient ID " + patientId + ":");
+
+            while (resultSet.next()) {
+                int appointmentPatientId = resultSet.getInt("p_id");
+                int scheduleId = resultSet.getInt("s_id");
+                int doctorRegistrationId = resultSet.getInt("reg_id");
+
+                System.out.println("Patient ID: " + appointmentPatientId +
+                        ", Schedule ID: " + scheduleId +
+                        ", Doctor Registration ID: " + doctorRegistrationId);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close JDBC resources in the reverse order of their creation
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void printDoctorAppointmentsByPatientId(Connection connection, int patientId) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            String sqlQuery = "SELECT doctors.d_reg_id, schedule.Start_Time, schedule.End_Time, doctors.d_name " +
+                    "FROM Appointments " +
+                    "JOIN Schedule ON Appointments.s_id = Schedule.s_id " +
+                    "JOIN Doctors ON Appointments.reg_id = Doctors.d_reg_id " +
+                    "WHERE p_id = ?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, patientId);
+            resultSet = preparedStatement.executeQuery();
+
+            System.out.println("Doctor Appointments for Patient ID " + patientId + ":");
+
+            while (resultSet.next()) {
+                int doctorRegistrationId = resultSet.getInt("d_reg_id");
+                Time startTime = resultSet.getTime("Start_Time");
+                Time endTime = resultSet.getTime("End_Time");
+                String doctorName = resultSet.getString("d_name");
+
+                System.out.println("Doctor Registration ID: " + doctorRegistrationId +
+                        ", Start Time: " + startTime +
+                        ", End Time: " + endTime +
+                        ", Doctor Name: " + doctorName);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close JDBC resources in the reverse order of their creation
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public int getPatientIdByDetails(Connection connection, String p_gender, String p_name, String p_address,
+            int p_age) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        int patientId = -1; // Default value if not found
+
+        try {
+            String sqlQuery = "SELECT p_id FROM Patient WHERE p_gender=? AND p_name=? AND p_address=? AND p_age=?";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, p_gender);
+            preparedStatement.setString(2, p_name);
+            preparedStatement.setString(3, p_address);
+            preparedStatement.setInt(4, p_age);
+            resultSet = preparedStatement.executeQuery();
+
+            // Retrieve patientId if found
+            if (resultSet.next()) {
+                patientId = resultSet.getInt("p_id");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close JDBC resources in the reverse order of their creation
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+                if (preparedStatement != null)
+                    preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return patientId;
+    }
+}

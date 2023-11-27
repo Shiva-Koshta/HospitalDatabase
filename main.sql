@@ -1,5 +1,5 @@
 CREATE TABLE Patient (
-  p_id INT PRIMARY KEY,
+  p_id SERIAL PRIMARY KEY,
   p_gender VARCHAR(10) ,
   p_name VARCHAR(255) not null,
   p_address VARCHAR(255),
