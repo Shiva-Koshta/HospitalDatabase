@@ -21,8 +21,8 @@ CREATE TABLE Medical_History (
 
 CREATE TABLE Schedule (
   s_id INT PRIMARY KEY,
-  End_Time TIME not null,
-  Start_Time TIME not null
+  Start_Time TIME not null,
+  End_Time TIME not null
 );
 
 CREATE TABLE Doctors (
